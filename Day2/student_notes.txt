@@ -1,0 +1,471 @@
+History
+=======
+
+    The first object–oriented language -  Simula (Simulation of real systems) that was developed in 1960 by researchers at the Norwegian Computing Center.
+
+    In 1970, Alan Kay and his research group at Xerox PARK created a personal computer named Dynabook and the first pure object-oriented programming language (OOPL) - Smalltalk, for programming the Dynabook.
+
+    In the 1980s, Grady Booch published a paper titled Object Oriented Design that mainly presented a design for the programming language, Ada. 
+
+    In the 1990s, Coad incorporated behavioral ideas to object-oriented methods.
+
+Object-Oriented Analysis
+========================
+
+    Procedure of identifying software engineering requirements and developing software specifications in terms of a software system’s object model, which comprises of interacting objects.
+
+    In object-oriented approach, requirements are organized around objects, which integrates both data and functions. They are modelled after real-world objects that the system interacts with. 
+    
+    In traditional analysis methodologies, the two aspects - functions and data - are considered separately.
+
+    Object-oriented analysis is a method of analysis that examines requirements from the perspective of the classes and objects found in the vocabulary of the problem domain.
+
+    Therefore, first challenge is to identifying objects
+
+    Once the objects are identified next is to 
+
+      Organize the objects (diagrams)
+      Define internals of the objects (object attributes)
+      Define behavior of the objects (object actions)
+      Describe how the objects interact
+
+    Typically, nouns will correspond to the classes and objects needed in the program.
+    Verbs may denote operations on the objects.
+    Even adjectives may represent classes. (E.g., storable, concurrent, registered, bounded, etc.)
+
+    Inheritance - Hierarchical organization
+
+    Consider example of a circle and ellipse. 
+
+    Should we define a class called Circle or Ellipse?
+
+    Strategy to refine the above identified Objects/Classes ::
+
+    i)   How the object is to be constructed, copied, destroyed
+    ii)  Minimal set of operations required by the class
+    iii) which operations can become virtual
+
+Object-Oriented Design
+======================
+
+    Involves implementation of the conceptual model produced during object-oriented analysis.  Conceptual model is independent of technology .
+    
+    Add more details to it (implementing classes, constraints, interfaces,etc.) resulting in a model for the solution domain, i.e., a detailed description of how the system is to be built on concrete technologies.
+
+    The implementation details generally include −
+
+    Restructuring the class data (if necessary),
+    Implementation of methods, i.e., internal data structures and algorithms,
+    Implementation of control, and
+    Implementation of associations.
+
+
+Object-Oriented Programming
+===========================
+
+    Important features of OOP:
+
+    Bottom–up approach in program design
+    Programs organized around objects, grouped in classes
+    Focus on data with methods to operate upon object’s data
+    Interaction between objects through functions
+    Reusability of design through creation of new classes by adding features to existing classes
+    Reusability of the code
+
+  
+    Examples of OOP languages are C++, Java, Smalltalk, Delphi, C#, Perl, Python, Ruby, and PHP.
+
+
+We will discuss and view few examples on the Object Design & Templates.
+
+Explore Object Design & Templates
+=================================
+
+    Provide a simple way to represent a wide range of general concepts and simple ways to combine them.
+
+    The resulting code for classes and functions can match hand-written more specialised code in run-time and space efficiency.
+
+    Direct support for generic programming (programming using types as parameters)
+
+    Standard library provided by C++ requires greater degree of generalization,flexibility and efficiency than does most software. Therefore, techniques used in the design and implementation of standard library are effective and efficient in the design of solutions to a wide vriety of problems.
+
+    These techniques enable an implementor to hide sophisticated implementations behind simple interfaces and to expose complexity to the user only when the user has a specific need for it.
+
+    Every major standard library abstraction is represented as template.(E.g., string, list, map, ...)
+
+
+    Simple Example :: 
+
+    string is a class that holds characters and provides operations such as subscripting, concatenation, comparison, etc.
+
+    The characters in the string could be Japanese, Chinese, signed or unsigned characters. Thus, string should be represented as with minimal dependance on a specific kind of character.
+
+    Definition of string relies on the fact that a character can be read, copied.
+
+
+
+Function Template
+=================
+
+	The general form of a template function definition is shown here −
+
+	template <class type> ret-type func-name(parameter list) {
+   	// body of function
+	}
+
+	Here, type is a placeholder name for a data type used by the function. This name can be used within the function definition.
+
+	The following is the example of a function template that returns the maximum of two values −
+
+	#include <iostream>
+	#include <string>
+
+	using namespace std;
+
+	template <typename T>
+	inline T const& Max (T const& a, T const& b) {
+   	return a < b ? b:a;
+	}
+
+	int main () {
+   	int i = 39;
+   	int j = 20;
+   	cout << "Max(i, j): " << Max(i, j) << endl;
+
+   	double f1 = 13.5;
+   	double f2 = 20.7;
+   	cout << "Max(f1, f2): " << Max(f1, f2) << endl;
+
+   	string s1 = "Hello";
+   	string s2 = "World";
+   	cout << "Max(s1, s2): " << Max(s1, s2) << endl;
+
+   	return 0;
+	}
+
+	If we compile and run above code, this would produce the following result −
+
+	Max(i, j): 39
+	Max(f1, f2): 20.7
+	Max(s1, s2): World
+
+Class Template
+==============
+
+Just as we can define function templates, we can also define class templates. The general form of a generic class declaration is shown here −
+
+template <class type> class class-name {
+   .
+   .
+   .
+}
+
+Here, type is the placeholder type name, which will be specified when a class is instantiated. You can define more than one generic data type by using a comma-separated list.
+
+Following is the example to define class Stack<> and implement generic methods to push and pop the elements from the stack −
+
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <string>
+#include <stdexcept>
+
+using namespace std;
+
+template <class T>
+class Stack {
+   private:
+      vector<T> elems;    // elements
+
+   public:
+      void push(T const&);  // push element
+      void pop();               // pop element
+      T top() const;            // return top element
+
+      bool empty() const {      // return true if empty.
+         return elems.empty();
+      }
+};
+
+template <class T>
+void Stack<T>::push (T const& elem) {
+   // append copy of passed element
+   elems.push_back(elem);
+}
+
+template <class T>
+void Stack<T>::pop () {
+   if (elems.empty()) {
+      throw out_of_range("Stack<>::pop(): empty stack");
+   }
+
+   // remove last element
+   elems.pop_back();
+}
+
+template <class T>
+T Stack<T>::top () const {
+   if (elems.empty()) {
+      throw out_of_range("Stack<>::top(): empty stack");
+   }
+
+   // return copy of last element
+   return elems.back();
+}
+
+int main() {
+   try {
+      Stack<int>         intStack;  // stack of ints
+      Stack<string> stringStack;    // stack of strings
+
+      // manipulate int stack
+      intStack.push(7);
+      cout << intStack.top() <<endl;
+
+      // manipulate string stack
+      stringStack.push("hello");
+      cout << stringStack.top() << std::endl;
+      stringStack.pop();
+      stringStack.pop();
+   } catch (exception const& ex) {
+      cerr << "Exception: " << ex.what() <<endl;
+      return -1;
+   }
+}
+
+If we compile and run above code, this would produce the following result −
+
+7
+hello
+Exception: Stack<>::pop(): empty stack
+
+
+
+2.	Standard Template Library (STL)
+
+The Standard Template Library (STL) is a set of C++ template classes 
+
+Purpose is to provide common programming data structures and functions such as lists, stacks, arrays,map, etc. It is a generalized library (its components are parameterized). 
+
+
+STL has four components
+
+    Algorithms
+    Containers
+    Functions
+    Iterators
+
+Algorithms
+==========
+
+The header algorithm defines a collection of functions especially designed to be used on ranges of elements.
+
+They act on containers and provide means for various operations  for the contents of the containers.
+
+    Algorithm
+        Sorting
+        Searching
+        Important STL Algorithms
+        Useful Array algorithms
+        Partition Operations
+    Numeric
+        valarray class
+
+Containers
+==========
+
+Containers or container classes store objects and data. 
+
+
+    Sequence Containers:  implement data structures which can be accessed in a sequential manner.
+        vector
+        list
+        deque
+        arrays
+        forward_list( Introduced in C++11)
+
+    Container Adaptors :  provide a different interface for sequential containers.
+        queue
+        priority_queue
+        stack
+    
+    Associative Containers :  implement sorted data structures that can be quickly searched (O(log n) complexity).
+        set
+        multiset
+        map
+        multimap
+
+Functions
+=========
+
+The STL includes classes that overload the function call operator. Instances of such classes are called function objects or functors. 
+
+Functors allow the working of the associated function to be customized with the help of parameters to be passed.
+
+    Functors
+
+Iterators
+=========
+
+Iterators are used for working upon a sequence of values. They are the major feature that allow generality in STL.
+
+    Iterators 
+
+Utility Library
+===============
+
+Defined under <utility header>
+
+    pair
+============================================================
+
+Algorithm - sorting
+===================
+
+Sorting is one of the most basic functions applied to data. It is useful in arranging the data in a particular fashion, which can be of increasing or decreasing order. 
+
+There is a builtin function in C++ STL by the name of sort().
+
+Internally this function is implemented as Quick-sort. 
+
+The complexity of it is O(N*log(N)).
+
+The prototype for sort is :
+
+sort(startaddress, endaddress)
+
+startaddress: the address of the first element of the array
+endaddress: the address of the next contiguous location of the last element of the array.
+sort() sorts in the range of [startaddress,endaddress)
+
+**********************************
+See the sample program sorting.cpp
+**********************************
+
+Algorithm - searching
+=====================
+
+Binary search is a widely used searching algorithm that requires the array to be sorted before search is applied. 
+
+The main idea behind this algorithm is to keep dividing the array in half (divide and conquer) until the element is found, or all the elements are exhausted.
+
+It works by comparing the middle item of the array with our target, if it matches, it returns true otherwise if the middle term is greater than the target, the search is performed in the left sub-array.
+If the middle term is less than target, the search is performed in the right sub-array.
+
+
+The prototype for binary search is :
+
+binary_search(startaddress, endaddress, valuetofind)
+
+startaddress: the address of the first element of the array.
+endaddress: the address of the last element of the array.
+valuetofind: the target value which we have to search for.
+
+
+**********************************
+See the sample program searching.cpp
+**********************************
+
+ Non-Manipulating Algorithms
+ ---------------------------
+
+  sort(first_iterator, last_iterator) 
+  reverse(first_iterator, last_iterator)
+  *max_element (first_iterator, last_iterator) 
+  *min_element (first_iterator, last_iterator) 
+  accumulate(first_iterator, last_iterator, initial value of sum) 
+  count(first_iterator, last_iterator,x) – To count the occurrences of x in vector.
+  find(first_iterator, last_iterator, x) – Points to last address of vector ((name_of_vector).end()) if element is not present in vector.
+  binary_search(first_iterator, last_iterator, x) 
+lower_bound(first_iterator, last_iterator, x) – returns an iterator pointing to the first element in the range [first,last) which has a value not less than ‘x’.
+upper_bound(first_iterator, last_iterator, x) – returns an iterator pointing to the first element in the range [first,last) which has a value greater than ‘x’.
+
+distance(first_iterator,desired_position) – It returns the distance of desired position from the first iterator.This function is very useful while finding the index.
+
+Manipulating Algorithms
+-----------------------
+
+arr.erase(position to be deleted) – This erases selected element in vector and shifts and resizes the vector elements accordingly.
+
+arr.erase(unique(arr.begin(),arr.end()),arr.end()) – This erases the duplicate occurrences in sorted vector in a single line
+
+next_permutation(first_iterator, last_iterator) – This modifies the vector to its next permutation.
+
+prev_permutation(first_iterator, last_iterator) – This modifies the vector to its previous permutation. 
+
+
+============================================================
+
+Useful array algorithms
+-----------------------
+
+all_of()
+========
+
+This function operates on whole range of array elements and can save time to run a loop to check each elements one by one. It checks for a given property on every element and returns true when each element in range satisfies specified property, else returns false.
+
+Syntax::
+bool all_of (InputIterator first, InputIterator last, UnaryPredicate pred);
+
+Parameters
+----------
+
+    first − Input iterators to the initial positions in a sequence.
+    last − Input iterators to the final positions in a sequence.
+    pred − An unary predicate function that accepts an element and returns a bool.
+
+Return value
+------------
+
+Returns true if predicate returns true for all the elements in the range or if the range is empty otherwise returns false.
+
+
+any_of()
+========
+
+This function checks for a given range if there’s even one element satisfying a given property mentioned in function. Returns true if at least one element satisfies the property else returns false.
+
+none_of()
+========
+
+This function returns true if none of elements satisfies the given condition else returns false.
+
+copy_n()
+========
+
+copy_n() copies one array elements to new array. 
+This function takes 3 arguments, source array name, size of array and the target array name.
+
+iota()
+========
+
+This function is used to assign continuous values to array. This function accepts 3 arguments, the array name, size, and the starting number.
+
+***************************
+Check sample array_algo.cpp
+Check sample vector_all_of.cpp
+***************************
+
+Partition Operations
+---------------------
+
+Partition operations :
+
+1. partition(beg, end, condition) :- This function is used to partition the elements on basis of condition mentioned in its arguments.
+
+2. is_partitioned(beg, end, condition) :- This function returns boolean true if container is partitioned else returns false.
+
+3. stable_partition(beg, end, condition) :- This function is used to partition the elements on basis of condition mentioned in its arguments in such a way that the relative order of the elements is preserved..
+
+4. partition_point(beg, end, condition) :- This function returns an iterator pointing to the partition point of container i.e. the first element in the partitioned range [beg,end) for which condition is not true. The container should already be partitioned for this function to work.
+
+5. partition_copy(beg, end, beg1, beg2, condition) :- This function copies the partitioned elements in the differenet containers mentioned in its arguments. 
+	It takes 5 arguments. 
+	Beginning and ending position of container, 
+	beginning position of new container where elements have to be copied (elements returning true for condition), 
+	beginning position of new container where other elements have to be copied (elements returning false for condition) and 
+	the condition. 
+	Resizing new containers is necessary for this function.
+
+***************************
+
