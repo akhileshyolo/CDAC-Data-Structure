@@ -1,0 +1,111 @@
+Write a function template apnaSort which helps the application developer to sort array of any of the following built-in data types, int, double, string.
+
+
+Solution Development::
+======================
+
+Problem is seeking function template with name apnaSort.
+
+So we must develop
+
+template <dataype T> 
+void apnaSort(T [] a) {
+}
+
+We need to write implementation of apnaSort and we can't write it unless we device a method to sort. Thereofre, we need to find method to sort.
+
+Suppose we take array of int, say a[10] and decide to sort. We can think of first finding smallest number and exchanging with the first element.
+Now we start finding smallest element from next array index and swap it similarly. This way next minimum will come to second place and son.
+
+Yes we have got algorithm for sorting now. we need to write psuedo code.
+
+array is of size s.
+Loop first: index i of the array is set to 0: 
+  Loop Second: 
+    Check for minimum in the array sequentially from index j
+    then set swap array[j] with array[i]
+  increase i by 1
+Loop first until i < size s
+
+Approx C code for sorting
+array a
+int i = j = temp = 0;
+s=a.size();
+for(i = 0; i < s; i++) {
+   for(j = i;j<s; ++j)
+     if (a[j] < a[i]) {
+       temp = a[i];
+       a[i]=a[j];
+       a[j]=temp;
+     }
+} 
+
+Line 36 to 38 can be put into a swap function.
+
+Lets write tester.cpp program to sort int array.
+
+#include <iostream>
+using namespace std;
+
+void algoSort(int * a, int s) {
+   int i = 0, j = 0;
+   int temp =0;
+   
+   for(i = 0; i < s; i++) {
+      for(j = i;j<s; ++j)
+        if (a[j] < a[i]) {
+          temp = a[i];
+          a[i]=a[j];
+          a[j]=temp;
+        }
+   } 
+}
+int main() {
+
+ int ia[] = {7,5,2,4,8,2,1};
+ 
+ int ia_size = sizeof(ia)/sizeof(ia[0]);
+
+ cout << "Given array is :";
+ for(int i = 0; i < ia_size; ++i)
+   cout << ia[i] << " ";
+ cout << endl;
+
+ algoSort(ia, ia_size);
+
+ cout << "After sort, array is :";
+ for(int i = 0; i < ia_size; ++i)
+   cout << ia[i] << " ";
+ cout << endl;
+
+  return 0;
+}
+
+With the successful working of the above program, we can start generalising.
+
+We started off like
+
+template <dataype T> 
+void apnaSort(T [] a) {
+}
+
+
+after looking at algoSort we refine.
+
+template <dataype T> 
+void apnaSort(T const& a, int s) {
+   int i = 0, j = 0;
+   T temp; 
+   
+   for(i = 0; i < s; i++) {
+      for(j = i;j<s; ++j)
+        if (a[j] < a[i]) {
+          temp = a[i];
+          a[i]=a[j];
+          a[j]=temp;
+        }
+   }   
+
+}
+
+Now we test by having this included in our tester1.cpp

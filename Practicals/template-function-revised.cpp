@@ -11,8 +11,7 @@ inline T const& Max(T const& a,T const& b){
 
 
 int main(){
-
-	int num1,num2,answer;
+	T num1,num2,answer;
 	cout<<"\nEnter num1, num2:";
 	cin>>num1>>num2;
 	answer = Max(num1,num2);
