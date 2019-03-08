@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
 
-	sabkaStack stk;
+	sabkaStack<int> stk;
 
 	stk.push(10);
 	stk.top();
