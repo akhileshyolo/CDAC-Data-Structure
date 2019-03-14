@@ -1,0 +1,36 @@
+Binary Tree Operations
+======================
+
+structure of binary tree
+------------------------
+
+	struct BTNode {
+
+           // Data Element
+	   int data;
+
+	   struct BTNode *left;
+	   struct BTNode *right;
+
+	}
+
+Operations
+----------
+
+	inserting a node
+	deleting a node
+	traversing the tree
+	searching for specific element
+
+Finding size, height, etc.
+
+Usage
+-----
+	Expression trees
+	Data compression (Huffman coding trees)
+	Binary Search Tree supports search, insertion, deletion on a collection of items with Order(log n) (average time complexity)
+
+
+Live Demo - Creation of a singly linked list
+============================================
+Code provided.
