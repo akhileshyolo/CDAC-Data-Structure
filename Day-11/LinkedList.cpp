@@ -34,10 +34,13 @@ bool insertObj(struct student **beg, struct student *new_obj) {
         return true;
      }
 
-     while((*beg)->next != NULL) {
-         *beg=(*beg)->next;
+     struct student *temp = *beg;
+
+     while(temp->next != NULL) {
+         cout << temp->roll_number << "\n";
+         temp=temp->next;
      }
-     (*beg)->next=new_obj;
+     temp->next=new_obj;
      return true;
 
 }
@@ -63,16 +66,18 @@ struct student *temp;
 }
 
 // Display the linked list
-void displayList( struct student *beg) {
+void displayList( struct student **beg) {
 
-  if (beg==NULL) {
+  if (*beg==NULL) {
     cout << "List is empty \n";
     return;
   }
 
-  while(beg) {
-    cout << "Student roll number = " << beg->roll_number;
-    beg=beg->next;
+  struct student *temp = *beg;
+
+  while(temp != NULL) {
+    cout << "Student roll number = " << temp->roll_number;
+    temp=temp->next;
   }
 
 }
@@ -103,7 +108,7 @@ struct student * head = NULL;
 		     cout << "Object insertion failed"; 
 	   }
 	   else {
-	         displayList(head);
+	         displayList(&head);
 	   }
 
 	}
